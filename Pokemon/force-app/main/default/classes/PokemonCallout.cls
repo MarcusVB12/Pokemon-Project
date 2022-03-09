@@ -1,9 +1,10 @@
 public with sharing class PokemonCallout {
 
-    public static void getPokemonCallout(Contact contact){          
+    public static PokemonWrapper.PokemonDetailWrapper getPokemonCallout(String pokemon){          
         PokemonAPI__mdt pokemonApiSettings = [SELECT EndPoint__c, Method__c FROM PokemonAPI__mdt];
         
-        String endPointPokemon = pokemonApiSettings.EndPoint__c + contact.favoritePokemon__c.ToLowercase();
+        String endPointPokemon = pokemonApiSettings.EndPoint__c + pokemon.ToLowercase();
+        PokemonWrapper.PokemonDetailWrapper pokemonDetails = new PokemonWrapper.PokemonDetailWrapper();
 
         Http http = new Http();
         HttpRequest request = new HttpRequest();
@@ -14,11 +15,12 @@ public with sharing class PokemonCallout {
         HttpResponse response = http.send(request);
 
         String jsonBody = response.getBody();
-
+        
         if (response.getStatusCode() == 200 && jsonBody != null) {       
-            PokemonWrapper.PokemonDetailWrapper pokemonDetails = (PokemonWrapper.PokemonDetailWrapper) JSON.deserialize(jsonBody, PokemonWrapper.PokemonDetailWrapper.class);
-            
+            return pokemonDetails = (PokemonWrapper.PokemonDetailWrapper) JSON.deserialize(jsonBody, PokemonWrapper.PokemonDetailWrapper.class);
+        }else{
+            pokemonDetails.Erro.erro = 'F';
+            return pokemonDetails;
         }
-
     }
 }

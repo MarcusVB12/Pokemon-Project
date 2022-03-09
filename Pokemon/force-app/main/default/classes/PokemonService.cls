@@ -1,7 +1,9 @@
 public with sharing class PokemonService {
     
-    public static void getPokemonCallout(Contact contact){
-        PokemonCallout.getPokemonCallout(Contact);           
+    @AuraEnabled(cacheable=true)
+    public static PokemonWrapper.PokemonDetailWrapper getPokemonCallout(String searchPokemon){
+        
+        return PokemonCallout.getPokemonCallout(searchPokemon);  
     }
 
 }
