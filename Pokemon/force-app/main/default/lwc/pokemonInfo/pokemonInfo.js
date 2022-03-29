@@ -1,12 +1,12 @@
-import { LightningElement,wire} from 'lwc';
+import { LightningElement,api} from 'lwc';
 import getPokemonCallout from '@salesforce/apex/PokemonService.getPokemonCallout';
 
 const DELAY = 600;
 
 export default class PokemonInfo extends LightningElement {
     searchPokemon = '';
-    wrapperPokemon;
-    image;
+    @api wrapperPokemon;
+a
     error;
 
     handleKeyChange(event){
@@ -16,13 +16,20 @@ export default class PokemonInfo extends LightningElement {
         getPokemonCallout({searchPokemon: this.searchPokemon })
         .then((result) =>{
             this.wrapperPokemon = result;
-            this.image = result.sprites.other.dream_world;
-            this.error = undefined;
+            this.handlep(result.stats);
+            this.error = undefined; 
         })
         .catch((error)=>{
             console.log('error' + error);
             this.error = error;
             this.wrapperPokemon = undefined;
         });
-    } 
+    }
+
+    handlep(a){
+        for(let b of a){
+            console.log('cc' + b.base_stat);
+            console.log('cc' + b.stat.name);
+        }
+    }
 }

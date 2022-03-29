@@ -19,22 +19,20 @@
             </div>                          
         </div>
     </lightning-card>
-        <template if:true={wrapperPokemon}>
-        <lightning-card  title="Capturar este companheiro?">
-                <p class="slds-align_absolute-center slds-text-heading_medium"><b>{wrapperPokemon.species.name}</b></p>    
-                <div class="slds-m-around_medium slds-align_absolute-center slds-box">                                
-                    <img class="heightImage" src={wrapperPokemon.sprites.other.dream_world.front_default}/>
-                </div>
-                <div class="slds-align_absolute-center slds-grid slds-wrap">
-                    <div class="slds-col slds-grid slds-size_1-of-2">
-                      <div class="slds-col slds-size_1-of-2">
-                        <span>Nested: 1</span>
-                      </div>
-                      <div class="slds-col slds-size_1-of-2">
-                        <span>Nested: 2</span>
-                      </div>
-                    </div>
-                  </div>
+        <template if:true={wrapperPokemon} onchange={pushBaseStatus}>
+        <lightning-card title="Capturar este companheiro?">
+          <div class="slds-theme_shade"> 
+            <p class="slds-align_absolute-center slds-text-heading_medium"><b>{wrapperPokemon.species.name}</b></p>    
+            <div class="slds-m-around_medium slds-align_absolute-center slds-box">                                
+                <img class="heightImage" src={wrapperPokemon.sprites.other.dream_world.front_default}/>
+            </div>
+          </div>
+          <lightning-button
+                    type="search" 
+                    variant="brand" 
+                    label="Search" 
+                    onclick={handlep} 
+                    ></lightning-button>
         </lightning-card>
     </template>
 </template>
